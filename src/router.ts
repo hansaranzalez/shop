@@ -3,8 +3,14 @@ import appStore from './store/appStore';
 import ProductsView from './views/productsView.vue';
 import ProductView from './views/productView.vue';
 import shoppingCartView from './views/shoppingCartView.vue';
+import LoginView from './views/auth/loginView.vue';
+import RegisterView from './views/auth/registrationView.vue';
+
 
 const routes = [
+  // authentication
+  { path: '/login', component: LoginView, name: 'login', meta: { requiresAuth: false } },
+  { path: '/register', component: RegisterView, name: 'register', meta: { requiresAuth: false } },
   { path: '/', component: ProductsView, name: 'productSearch', meta: { requiresAuth: false } },
   { path: '/product/:id', name: 'product', component: ProductView, meta: { requiresAuth: false } },
   { path: '/shopping-cart', name: 'shoppingCart', component: shoppingCartView, meta: { requiresAuth: false } },

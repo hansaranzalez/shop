@@ -1,3 +1,6 @@
+import ShoppingCart from "./entities/ShoppingCart";
+import User from "./entities/User";
+
 export interface ExeptionContract {
     status: number;
     title: string;
@@ -42,4 +45,13 @@ export interface ICity {
     state: IState;
     created_at: string;
     updated_at: string;
+}
+
+export interface IShoppingSessionForApi {
+    user: User;
+    cart: ShoppingCart;
+    delivery_fee: number;
+    discount: number;
+    active: boolean;
+    total_price: number;
 }

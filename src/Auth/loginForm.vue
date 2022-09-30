@@ -1,22 +1,33 @@
 <script setup lang="ts">
-import authenticate from "./@actions/authenticate";
-import router from "@/router";
-import { ElMessage } from "element-plus";
-import { computed, ref } from "vue";
-import validationRules from "./@store/validationRules";
-import State from "@/State";
+import appStore from '../store/appStore';
+import { ref } from 'vue';
+import { ElMessage } from 'element-plus';
+import router from '../router';
 
-const i18n = computed(() => State().getI18n());
+const props = defineProps<{
+  payload: {
+    email: string;
+    password: string;
+  },
+  validationRules: any;
+}>();
 
-const payload = ref({ email: "", password: "" });
+const emit = defineEmits<{
+  (event: 'submit', ...args: any[]): void;
+}>();
+
+
+const i18n = appStore.i18n();
+
+const payload = ref(props.payload);
+
 const loginForm = ref();
 
 function onSubmit(): void {
   try {
     loginForm.value.validate(async (valid: boolean) => {
       if (!valid) return false;
-      await authenticate(payload.value);
-      router.push("/");
+      emit('submit', payload.value);
     });
   } catch (error: any) {
     ElMessage(error.message);
@@ -28,7 +39,7 @@ function onSubmit(): void {
   <el-form
     :model="payload"
     ref="loginForm"
-    :rules="validationRules.loginForm"
+    :rules="validationRules"
     label-width="80px"
     label-position="top"
     :inline="false"
@@ -50,12 +61,12 @@ function onSubmit(): void {
     <el-form-item>
       <div class="flex w-full flex-col items-center text-center">
         <div class="w-full">
-          <el-button type="primary" @click="onSubmit">{{
+          <el-button type="text" class="primaryBtn w-full" @click="onSubmit">{{
             i18n.authentication.login
           }}</el-button>
         </div>
         <div class="w-full">
-          <el-button type="text" @click="$router.push('registration')">{{
+          <el-button type="text" @click="$router.push('register')">{{
             i18n.authentication.register
           }}</el-button>
         </div>

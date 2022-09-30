@@ -1,52 +1,77 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import shoppingSessionStore from "../../../store/shoppingSessionStore";
-import ListsStore from "../../../store/listsStore";
-const formPayload = ref(shoppingSessionStore.getUserShippingAddressPayload());
+import { ICity, ICountry, IState } from "../../../@types";
+
+const props = defineProps<{
+  payload: {
+    address_line_1: string;
+    address_line_2: string;
+    city: ICity;
+    state: IState;
+    postal_code: string;
+    country: ICountry;
+  };
+  countryList: ICountry[];
+  stateList: IState[];
+  cityList: ICity[];
+  validationRules: any;
+}>();
+
+const payload = ref(props.payload);
+const countryList = ref(props.countryList);
+const stateList = ref(props.stateList);
+const cityList = ref(props.cityList);
+
 </script>
 <template>
-  <div>
+  <div class="bg-white absolute inset-0 z-30">
     <div>
       <input
         type="text"
-        v-model="formPayload.address_line_1"
+        v-model="payload.address_line_1"
         placeholder="Direccion linea 1"
       />
     </div>
     <div>
       <input
         type="text"
-        v-model="formPayload.address_line_2"
+        v-model="payload.address_line_2"
         placeholder="Direccion linea 2"
       />
     </div>
     <div>
-      <select v-model="formPayload.city" placeholder="Ciudad">
-        <option v-for="city in ListsStore.cities()" :value="city">
+      <select v-model="payload.city" placeholder="Ciudad">
+        <option v-for="city in cityList" :value="city">
           {{ city.name }}
         </option>
       </select>
     </div>
+    
     <div>
-      <select v-model="formPayload.country" placeholder="Departamento">
-        <option v-for="country in ListsStore.countries()" :value="country">
-          {{ country.name }}
-        </option>
-      </select>
-    </div>
-    <div>
-      <select v-model="formPayload.state" placeholder="Pais">
-        <option v-for="state in ListsStore.countries()" :value="state">
+      <select v-model="payload.state" placeholder="Pais">
+        <option v-for="state in stateList" :value="state">
           {{ state.name }}
         </option>
       </select>
     </div>
+
+    <div>
+      <select v-model="payload.country" placeholder="Departamento">
+        <option v-for="country in countryList" :value="country">
+          {{ country.name }}
+        </option>
+      </select>
+    </div>
+
     <div>
       <input
         type="text"
-        v-model="formPayload.postal_code"
+        v-model="payload.postal_code"
         placeholder="Codigo postal"
       />
+    </div>
+    <div>
+      <button @click="$emit('close')">Cerrar</button>
     </div>
   </div>
 </template>

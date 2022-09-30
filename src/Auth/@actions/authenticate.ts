@@ -1,22 +1,21 @@
-import type { AuthenticationSuccessResponseContract } from '@/@types';
+import Http from '../../Http'
+import router from '../../router';
+import shoppingSessionStore from '../../store/shoppingSessionStore';
+import User from '../../entities/User';
+import { ElMessage } from 'element-plus';
 
-import AuthStore from '../@store';
-import State from '@/State';
 
-const store = AuthStore();
-
-interface AuthenticatePayloadContract {
-    email: string;
-    password: string;
-}
-
-export default async function authenticate({email, password}: AuthenticatePayloadContract): Promise<void> {
+export default async function authenticate(payload: {email:string, password: string}): Promise<void> {
     try {
-        const http = State().getHttp();
-        const result: AuthenticationSuccessResponseContract = await http.post('login', {email, password});
-        store.setUser(result.user);
-        State().setJwtToken(result.token);
+        const result = await Http.post('auth/login', payload);
+        if (result.status) throw result;
+        localStorage.setItem('cactus-token', result.token);
+        localStorage.setItem('cactus-user', JSON.stringify(result.user));
+        Http.setJwtToken();
+        shoppingSessionStore.setUser(new User(result.user));
+        router.push("/");
     } catch (error: any) {
+        ElMessage.error(error.message);
         console.log(error.message);
     }
 }

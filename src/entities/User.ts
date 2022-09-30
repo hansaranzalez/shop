@@ -34,6 +34,7 @@ export interface UserRegistrationPayload {
     email: string;
     password: string;
     phone: string;
+    repeatPassword: string;
 }
 
 export default class User {
@@ -49,6 +50,7 @@ export default class User {
     isAdmin: boolean;
     isUser: boolean;
     isGuest: boolean;
+    isAhtorized: boolean;
     created_at: Date;
     updated_at: Date;
 
@@ -153,6 +155,7 @@ export default class User {
         this.isUser = computed(() => this.checkRole('USER')).value;
         this.isGuest = computed(() => this.checkRole('GUEST')).value;
         this.isAdmin = computed(() => this.checkRole('ADMIN')).value;
+        this.isAhtorized = computed(() => this.isUser || this.isAdmin).value;
         return this;
     }
 
@@ -167,13 +170,14 @@ export default class User {
         };
     }
 
-    getRegisterPayload(): UserRegistrationPayload {
+    getUserRegistrationForm(): UserRegistrationPayload {
         return {
             name: this.name,
             lastname: this.lastname,
             email: this.email,
             password: this.password,
             phone: this.phone,
+            repeatPassword: '',
         };
     }
 
@@ -189,6 +193,35 @@ export default class User {
             created_at: this.shippingAddress.created_at,
             updated_at: this.shippingAddress.updated_at,
         }
+    }
+
+    getPasswordRecoveryPayload(): { email: string } {
+        return {
+            email: this.email,
+        };
+    }
+
+    getUserRegistrationPayload(): { name: string; lastname: string; email: string; password: string; phone: string } {
+        return {
+            name: this.name,
+            lastname: this.lastname,
+            email: this.email,
+            password: this.password,
+            phone: this.phone,
+        };
+    }
+
+    setLoginPayload(payload: { email: string; password: string }): void {
+        this.email = payload.email;
+        this.password = payload.password;
+    }
+
+    setUserRegistrationForm(payload: UserRegistrationPayload): void {
+        this.name = payload.name;
+        this.lastname = payload.lastname;
+        this.email = payload.email;
+        this.password = payload.password;
+        this.phone = payload.phone;
     }
 
 }

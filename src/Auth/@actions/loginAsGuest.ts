@@ -1,21 +1,17 @@
 import { ElMessage } from "element-plus";
 import User from "../../entities/User";
 import Http from "../../Http";
-import router from "../../router";
 import shoppingSessionStore from "../../store/shoppingSessionStore";
 
-export default async function registerUser(): Promise<any> {
+export default async function loginAsGuest(): Promise<void> {
     try {
-        const user = shoppingSessionStore.getUserRegistrationPayload();
-        const result = await Http.post('auth/register', user);
+        const result = await Http.get('auth/guest/login');
         if (result.status) throw result;
         localStorage.setItem('cactus-token', result.token);
-        localStorage.setItem('cactus-user', JSON.stringify(result.user));
         Http.setJwtToken();
         shoppingSessionStore.setUser(new User(result.user));
-        router.push("/");
     } catch (error: any) {
         ElMessage.error(error.message);
-        console.log(error.message)
+        console.log(error.message);
     }
 }

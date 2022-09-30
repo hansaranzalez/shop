@@ -7,9 +7,18 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    CheckkoutProduct: typeof import('./src/components/shoppingCart/checkout/checkkoutProduct.vue')['default']
     Checkout: typeof import('./src/components/shoppingCart/checkout/index.vue')['default']
+    CheckoutBuyNowTray: typeof import('./src/components/shoppingCart/checkout/checkoutBuyNowTray.vue')['default']
+    CheckOutProduct: typeof import('./src/components/shoppingCart/checkout/checkOutProduct.vue')['default']
     CheckoutProducts: typeof import('./src/components/shoppingCart/checkout/checkoutProducts.vue')['default']
+    CheckOutProductsList: typeof import('./src/components/shoppingCart/checkout/checkOutProductsList.vue')['default']
+    ElAvatar: typeof import('element-plus/es')['ElAvatar']
+    ElButton: typeof import('element-plus/es')['ElButton']
+    ElForm: typeof import('element-plus/es')['ElForm']
+    ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElImage: typeof import('element-plus/es')['ElImage']
+    ElInput: typeof import('element-plus/es')['ElInput']
     HelperBar: typeof import('./src/components/common/helperBar.vue')['default']
     PriceQuantityTray: typeof import('./src/components/products/product/priceQuantityTray.vue')['default']
     Product: typeof import('./src/components/products/product/index.vue')['default']
@@ -25,5 +34,6 @@ declare module '@vue/runtime-core' {
     ShoppingCartItem: typeof import('./src/components/shoppingCart/shoppingCartItem.vue')['default']
     ShoppingCartList: typeof import('./src/components/shoppingCart/shoppingCartList.vue')['default']
     SubTotalPriceTray: typeof import('./src/components/shoppingCart/subTotalPriceTray.vue')['default']
+    YoureNotLoggedIn: typeof import('./src/components/shoppingCart/checkout/youreNotLoggedIn.vue')['default']
   }
 }

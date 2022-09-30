@@ -7,6 +7,7 @@ html, body {
   @apply bg-olive-light;
 }
 
+
 .swiper-horizontal > .swiper-pagination-bullets,
 .swiper-pagination-bullets.swiper-pagination-horizontal,
 .swiper-pagination-custom,
@@ -28,24 +29,42 @@ input[type=number] {
 /* Estilos Linda */
 
 .baseBtn {
-  @apply rounded-full text-white;
+  @apply rounded-full !important;
 }
 
 .baseBtn:hover {
-  @apply opacity-60;
+  @apply opacity-60 !important;
 }
 
 .baseBtn:active {
-  @apply opacity-80;
+  @apply opacity-80 !important;
 }
 .primaryBtn {
-  @apply baseBtn bg-olive;
+  @apply baseBtn bg-olive text-white !important;
 }
 
 .dangerBtn {
-  @apply baseBtn bg-red-800;
+  @apply baseBtn bg-red-800 text-white !important;
 }
 
 .textBtn {
-  @apply baseBtn bg-transparent;
+  @apply baseBtn bg-transparent text-gray-600 !important;
+}
+
+
+
+
+/* styles element plus */
+
+
+.el-input__wrapper {
+  border-radius: 20px !important;
+}
+
+.el-input__wrapper.is-focus {
+  box-shadow: #B2B6A5 !important;
+}
+
+.el-avatar {
+  @apply bg-olive !important;
 }

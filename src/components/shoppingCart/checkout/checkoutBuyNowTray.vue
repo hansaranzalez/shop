@@ -1,17 +1,8 @@
 <script setup lang="ts">
 import { ElMessage } from "element-plus";
-import appStore from "../../store/appStore";
-import shoppingSessionStore from "../../store/shoppingSessionStore";
-import convertToCurrency from "../../utils/convertToCurrency";
-
-function checkIfUserIsLoggedIn() {
-  const isLogged = shoppingSessionStore.isUserLoggedIn();
-  if (isLogged) {
-    appStore.setNotLoggedInMessageOnCheckout(false);
-  } else {
-    appStore.setNotLoggedInMessageOnCheckout(true);
-  }
-}
+import sendShoppingSession from "../../../actions/sendShoppingSession";
+import shoppingSessionStore from "../../../store/shoppingSessionStore";
+import convertToCurrency from "../../../utils/convertToCurrency";
 </script>
 
 <template>
@@ -29,8 +20,8 @@ function checkIfUserIsLoggedIn() {
       </div>
     </div>
     <div>
-      <button @click="checkIfUserIsLoggedIn" class="primaryBtn h-16 w-80 mx-auto">
-        Checkout
+      <button @click="sendShoppingSession" class="primaryBtn h-16 w-80 mx-auto">
+        Buy now
       </button>
     </div>
   </div>

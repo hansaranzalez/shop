@@ -2,10 +2,13 @@
 import { computed } from "vue";
 import shoppingCartListVue from "../components/shoppingCart/shoppingCartList.vue";
 import shoppingSessionStore from "../store/shoppingSessionStore";
+import checkout from '../components/shoppingCart/checkout/index.vue';
 
 const products = computed(() => shoppingSessionStore.products());
+const shoppingSessionSummaryVisible = computed(() => shoppingSessionStore.shoppingSessionSummaryVisible());
 </script>
 
 <template>
-  <shoppingCartListVue :products="products" />
+  <checkout v-if="shoppingSessionSummaryVisible" />
+  <shoppingCartListVue v-else :products="products" />
 </template>

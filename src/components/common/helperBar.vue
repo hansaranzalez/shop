@@ -2,7 +2,9 @@
 import { computed } from "vue";
 import AppStore from "../../store/appStore";
 import productsStore from "../../store/productsStore";
-import shoppingSessionStore from '../../store/shoppingSessionStore';
+import shoppingSessionStore from "../../store/shoppingSessionStore";
+
+import { UserFilled } from "@element-plus/icons-vue";
 
 const productsSearchQuery = computed({
   get: () => productsStore.searchQuery(),
@@ -11,7 +13,7 @@ const productsSearchQuery = computed({
 </script>
 
 <template>
-  <div class="flex fixed top-0 left-0 right-0 p-5 z-30">
+  <div class="flex fixed top-0 left-0 right-0 p-5 z-30 space-x-1">
     <div class="flex-1 flex-col items-start justify-center">
       <!-- go back arrow-->
       <router-link
@@ -38,7 +40,7 @@ const productsSearchQuery = computed({
         <input
           v-model="productsSearchQuery"
           type="text"
-          class="w-56 h-10 px-3 text-base text-gray-700 placeholder-gray-600 border rounded-full focus:outline-none outline-indigo-900"
+          class=" w-44 h-10 px-3 text-base text-gray-700 placeholder-gray-600 border rounded-full focus:outline-none outline-indigo-900"
           placeholder="Search"
           aria-label="Search"
         />
@@ -51,19 +53,34 @@ const productsSearchQuery = computed({
         </button>
       </div>
     </div>
-    <div class="flex-1 flex-col text-right">
-      <!-- shopping cart button -->
-      <router-link to="/shopping-cart">
-        <button type="submit" class="primaryBtn w-10 h-10">
-          <i class="text-xs fa fa-shopping-cart"></i>
-        </button>
-        <!-- notification badge -->
-        <span
-          v-if="shoppingSessionStore.getTotalQuantity() > 0"
-          class="absolute top-0 right-0 m-2 block rounded-full h-5 w-5 leading-5 text-xs text-white text-center bg-red-900"
-          >{{ shoppingSessionStore.getTotalQuantity() }}</span
-        >
-      </router-link>
+
+    <div class="flex space-x-1">
+      <div class="w-10 flex-col text-right relative">
+        <!-- shopping cart button -->
+        <router-link to="/shopping-cart">
+          <button type="submit" class="primaryBtn w-10 h-10">
+            <i class="text-xs fa fa-shopping-cart"></i>
+          </button>
+          <!-- notification badge -->
+          <span
+            v-if="shoppingSessionStore.getTotalQuantity() > 0"
+            class="absolute -top-4 -right-2 block rounded-full h-5 w-5 leading-5 text-xs text-white text-center bg-red-900"
+            >{{ shoppingSessionStore.getTotalQuantity() }}</span
+          >
+        </router-link>
+      </div>
+      <div class="w-10 flex-col text-right">
+        <!-- user button -->
+        <router-link to="/">
+          <el-avatar
+            :icon="UserFilled"
+            size="medium"
+            shape="circle"
+            :src="shoppingSessionStore.getLoggedUser().avatar.url"
+            fit="fill"
+          ></el-avatar>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
