@@ -1,18 +1,7 @@
 <script setup lang="ts">
-import router from "../../../router";
-import appStore from "../../../store/appStore";
-import loginAsGuest from '../../../Auth/@actions/loginAsGuest';
-import shoppingSessionStore from "../../../store/shoppingSessionStore";
+import router from "../../router";
+import appStore from "../../store/appStore";
 
-async function continueAsGuest() {
-  try {
-    await loginAsGuest();
-    shoppingSessionStore.setShoppingSessionSummaryVisible(true);
-    appStore.setNotLoggedInMessageOnCheckout(false);
-  } catch (error) {
-    console.log(error);
-  }
-}
 
 function continueToLogin() {
   router.push("/login");
@@ -32,7 +21,7 @@ function continueToLogin() {
     </div>
     <div class="w-full">
       <!-- continue as guest button -->
-      <button class="textBtn p-5 w-full" @click="continueAsGuest">
+      <button class="textBtn p-5 w-full" @click="">
         continue as guest
       </button>
     </div>

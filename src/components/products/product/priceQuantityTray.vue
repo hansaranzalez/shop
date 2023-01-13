@@ -4,7 +4,7 @@ import convertToCurrency from "../../../utils/convertToCurrency";
 import { vOnClickOutside } from "@vueuse/components";
 import { ref, computed } from "vue";
 import quantityVue from "../../common/quantity.vue";
-import shoppingSessionStore from '../../../store/shoppingSessionStore';
+import store from "../../../store/store";
 
 const props = defineProps<{
   product: Product;
@@ -12,7 +12,7 @@ const props = defineProps<{
 
 const isDescriptionVisible = ref(false);
 const isProductInCart = computed(() =>
-shoppingSessionStore.findProductInShoppingCart(props.product)
+store.shoppingSession.shopping_cart.findProductInCart(props.product)
 );
 </script>
 
@@ -60,14 +60,14 @@ shoppingSessionStore.findProductInShoppingCart(props.product)
       <!-- add to cart button-->
       <button
         v-if="!isProductInCart"
-        @click="shoppingSessionStore.addProduct(product)"
+        @click="store.shoppingSession.shopping_cart.addProduct(product)"
         class="primaryBtn h-16 w-80 mx-auto"
       >
         ADD TO CART
       </button>
       <button
         v-if="isProductInCart"
-        @click="shoppingSessionStore.removeProduct(product)"
+        @click="store.shoppingSession.shopping_cart.removeProduct(product)"
         class="dangerBtn h-16 w-80 mx-auto"
       >
         Remove from cart

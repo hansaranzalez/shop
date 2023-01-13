@@ -1,29 +1,24 @@
 
 
-export interface HttpContract {
-    get: (route: string) => any;
-    post: (route: string, body: any) => any;
-    patch: (route: string, body: any) => any;
-    del: (route: string) => any;
-    setJwtToken: () => void;
-}
 
 const logout = () => true
 
-function Http(): HttpContract {
-    const baseUrl = 'http://localhost';
+function Http() {
+    const production = 'http://ec2-18-224-189-140.us-east-2.compute.amazonaws.com';
+    const local = 'http://localhost';
     const port = 3000;
     const apiVersion = 'v1';
+    const api = `${local}:${port}/${apiVersion}`;
     const headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ',
+        'Authorization': `Bearer ${localStorage.getItem('cactus-token')}`,
         'Accept': 'application/json',
     }
 
     async function get(route: string): Promise<any> {
         try {
-            const api = `${baseUrl}:${port}/${apiVersion}/${route}`;
-            const response = await fetch(api, {
+            const apiPath = `${api}/${route}`;
+            const response = await fetch(apiPath, {
                 method: 'get',
                 headers: new Headers(headers)
             });
@@ -40,10 +35,10 @@ function Http(): HttpContract {
 
     async function post(route: string, body: any): Promise<any> {
         try {
-            const api = `${baseUrl}:${port}/${apiVersion}/${route}`;
+            const apiPath = `${api}/${route}`;
             // stringify body
             body = JSON.stringify(body);
-            const response = await fetch(api, {
+            const response = await fetch(apiPath, {
                 method: 'post',
                 body,
                 headers: new Headers(headers)
@@ -61,10 +56,10 @@ function Http(): HttpContract {
 
     async function patch(route: string, body: any): Promise<any> {
         try {
-            const api = `${baseUrl}:${port}/${apiVersion}/${route}`;
+            const apiPath = `${api}/${route}`;
             // stringify body
             body = JSON.stringify(body);
-            const response = await fetch(api, {
+            const response = await fetch(apiPath, {
                 method: 'put',
                 body,
                 headers: new Headers(headers)
@@ -82,8 +77,8 @@ function Http(): HttpContract {
 
     async function del(route: string): Promise<any> {
         try {
-            const api = `${baseUrl}:${port}/${apiVersion}/${route}`;
-            const response = await fetch(api, {
+            const apiPath = `${api}/${route}`;
+            const response = await fetch(apiPath, {
                 method: 'delete',
                 headers: new Headers(headers)
             });
@@ -98,18 +93,12 @@ function Http(): HttpContract {
         }
     }
 
-    function setJwtToken(): void {
-        const token = localStorage.getItem('cactus-token');
-        if (token) headers['Authorization'] = `Bearer ${token}`;
-    }
-
 
     return {
         get,
         post,
         patch,
         del,
-        setJwtToken,
     }
 }
 

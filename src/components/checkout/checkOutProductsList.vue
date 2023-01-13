@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Product from '../../../entities/Product';
+import Product from '../../entities/Product';
 import checkOutProduct from './checkOutProduct.vue';
 
     defineProps<{

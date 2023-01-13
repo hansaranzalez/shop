@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import Product from "../../entities/Product";
+import store from "../../store/store";
 import convertToCurrency from "../../utils/convertToCurrency";
 import quantityVue from "../common/quantity.vue";
-import shoppingSessionStore from '../../store/shoppingSessionStore';
 import { vOnClickOutside } from "@vueuse/components";
 import { ref } from "vue";
 
@@ -61,7 +61,7 @@ defineProps<{
       </div>
       <div
         v-on-click-outside="() => (confirmDeleteVisible = false)"
-        @click="shoppingSessionStore.removeProduct(product)"
+        @click="store.shoppingSession.shopping_cart.removeProduct(product)"
         v-if="confirmDeleteVisible"
         class="w-16 h-full bg-red-900 cursor-pointer"
       >

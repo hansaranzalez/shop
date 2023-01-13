@@ -2,9 +2,9 @@
 import { computed } from "vue";
 import AppStore from "../../store/appStore";
 import productsStore from "../../store/productsStore";
-import shoppingSessionStore from "../../store/shoppingSessionStore";
 
 import { UserFilled } from "@element-plus/icons-vue";
+import store from "../../store/store";
 
 const productsSearchQuery = computed({
   get: () => productsStore.searchQuery(),
@@ -63,9 +63,9 @@ const productsSearchQuery = computed({
           </button>
           <!-- notification badge -->
           <span
-            v-if="shoppingSessionStore.getTotalQuantity() > 0"
+            v-if="store.shoppingSession.shopping_cart.getTotalQuantity() > 0"
             class="absolute -top-4 -right-2 block rounded-full h-5 w-5 leading-5 text-xs text-white text-center bg-red-900"
-            >{{ shoppingSessionStore.getTotalQuantity() }}</span
+            >{{ store.shoppingSession.shopping_cart.getTotalQuantity() }}</span
           >
         </router-link>
       </div>
@@ -76,7 +76,7 @@ const productsSearchQuery = computed({
             :icon="UserFilled"
             size="medium"
             shape="circle"
-            :src="shoppingSessionStore.getLoggedUser().avatar.url"
+            :src="store.shoppingSession.user.avatar.url"
             fit="fill"
           ></el-avatar>
         </router-link>

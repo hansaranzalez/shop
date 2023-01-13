@@ -2,7 +2,7 @@
 import shippingAddressVue from "./shippingAddress.vue";
 import checkOutProductsListVue from "./checkOutProductsList.vue";
 import checkoutBuyNowTrayVue from "./checkoutBuyNowTray.vue";
-import shoppingSessionStore from "../../../store/shoppingSessionStore";
+import store from "../../store/store";
 </script>
 <template>
   <div class="space-y-5">
@@ -13,7 +13,7 @@ import shoppingSessionStore from "../../../store/shoppingSessionStore";
     </div>
     <!-- products -->
     <div>
-      <checkOutProductsListVue :products="shoppingSessionStore.products()"/>
+      <checkOutProductsListVue :products="store.shoppingSession.shopping_cart.products"/>
     </div>
     <!-- comments -->
     <div class="bg-white p-5 space-y-5">

@@ -7,7 +7,7 @@ export default async function getProducts() {
         const page = productsStore.getPaginator().currentPage;
         const search = productsStore.searchQuery();
         const limit = productsStore.getPaginator().itemsPerPage;
-        const response = await Http.get(`products?page=${page}&limit=${limit}&search=${search}`);
+        const response = await Http.get(`products/shop?page=${page}&limit=${limit}&search=${search}`);
         if (response.status) throw response;
         productsStore.setProducts(response.items);
         productsStore.setLoading(false);

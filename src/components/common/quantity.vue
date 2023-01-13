@@ -17,7 +17,7 @@ defineProps<{
     <div class="flex flex-col justify-center">
       <!-- quantity input -->
       <input
-        v-model="product.quantity"
+        v-model="product.quantityInCart"
         disabled
         class="w-16 p-2 text-center rounded-xl"
         type="number"

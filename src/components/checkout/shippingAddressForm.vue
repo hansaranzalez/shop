@@ -1,19 +1,22 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { ICity, ICountry, IState } from "../../../@types";
+import { City } from "../../entities/City";
+import { State } from "../../entities/State";
+import { Country } from "../../entities/Country";
 
 const props = defineProps<{
   payload: {
-    address_line_1: string;
-    address_line_2: string;
-    city: ICity;
-    state: IState;
-    postal_code: string;
-    country: ICountry;
+    name: string;
+    address: string;
+    country: Country;
+    state: State;
+    city: City;
+    postal_code: number;
+    for_shipping: boolean;
   };
-  countryList: ICountry[];
-  stateList: IState[];
-  cityList: ICity[];
+  countryList: Country[];
+  stateList: State[];
+  cityList: City[];
   validationRules: any;
 }>();
 
@@ -21,24 +24,17 @@ const payload = ref(props.payload);
 const countryList = ref(props.countryList);
 const stateList = ref(props.stateList);
 const cityList = ref(props.cityList);
-
 </script>
 <template>
   <div class="bg-white absolute inset-0 z-30">
     <div>
       <input
         type="text"
-        v-model="payload.address_line_1"
+        v-model="payload.address"
         placeholder="Direccion linea 1"
       />
     </div>
-    <div>
-      <input
-        type="text"
-        v-model="payload.address_line_2"
-        placeholder="Direccion linea 2"
-      />
-    </div>
+    
     <div>
       <select v-model="payload.city" placeholder="Ciudad">
         <option v-for="city in cityList" :value="city">
@@ -46,7 +42,7 @@ const cityList = ref(props.cityList);
         </option>
       </select>
     </div>
-    
+
     <div>
       <select v-model="payload.state" placeholder="Pais">
         <option v-for="state in stateList" :value="state">

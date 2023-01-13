@@ -20,7 +20,7 @@ const props = defineProps<{
       :slides-per-view="1"
       class="fixed inset-0"
     >
-      <SwiperSlide v-for="(slide, index) in product.images" :key="index">
+      <SwiperSlide v-for="(slide, index) in product.getImages()" :key="index">
         <div>
           <img :src="slide.url" alt="" />
         </div>

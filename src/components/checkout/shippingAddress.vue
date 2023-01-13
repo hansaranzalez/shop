@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
-import getList from "../../../actions/getList";
-import appStore from "../../../store/appStore";
-import listsStore from "../../../store/listsStore";
-import shoppingSessionStore from "../../../store/shoppingSessionStore";
+import getList from "../../actions/getList";
+import listsStore from "../../store/listsStore";
 import shippingAddressFormVue from "./shippingAddressForm.vue";
-import formsValidationRules from "../../../utils/formsValidationRules";
+import formsValidationRules from "../../utils/formsValidationRules";
+import store from "../../store/store";
 
 const countries = computed(() => listsStore.countries());
 const states = computed(() => listsStore.states());
@@ -37,37 +36,28 @@ onMounted(async () => {
     </div>
     <!-- shipping details-->
     <div class="pl-8 py-3">
-      <p class="text-lg text-gray-600 font-semibold">{{ shoppingSessionStore.getLoggedUser().name ? shoppingSessionStore.getLoggedUser().name : 'Sin usuario' }}</p>
+      <p class="text-lg text-gray-600 font-semibold">{{ store.shoppingSession.user.id !== '' ? store.shoppingSession.user.name : 'Sin usuario' }}</p>
       <p class="text-xs text-gray-600">
         {{
-          shoppingSessionStore.getUserShippingAddressPayload().address_line_1 ? shoppingSessionStore.getUserShippingAddressPayload().address_line_1 : "No hay direccion"
+          store.shoppingSession.getShippingAddress().address ? store.shoppingSession.getShippingAddress().address : "No hay direccion"
         }}
       </p>
-      <p class="text-xs text-gray-600"
-        v-if="
-          shoppingSessionStore.getUserShippingAddressPayload()
-            .address_line_2 !== ''
-        "
-      >
-        {{
-          shoppingSessionStore.getUserShippingAddressPayload().address_line_2
-        }}
+      
+      <p class="text-xs text-gray-600">
+        {{ store.shoppingSession.getShippingAddress().city.name ? store.shoppingSession.getShippingAddress().city.name : "No hay ciudad" }}
       </p>
       <p class="text-xs text-gray-600">
-        {{ shoppingSessionStore.getUserShippingAddressPayload().city.name ? shoppingSessionStore.getUserShippingAddressPayload().city.name : "No hay ciudad" }}
+        {{ store.shoppingSession.getShippingAddress().state.name ? store.shoppingSession.getShippingAddress().state.name : "No hay estado" }}
       </p>
       <p class="text-xs text-gray-600">
-        {{ shoppingSessionStore.getUserShippingAddressPayload().state.name ? shoppingSessionStore.getUserShippingAddressPayload().state.name : "No hay estado" }}
-      </p>
-      <p class="text-xs text-gray-600">
-        {{ shoppingSessionStore.getUserShippingAddressPayload().postal_code ? shoppingSessionStore.getUserShippingAddressPayload().postal_code : "No hay codigo postal" }}
+        {{ store.shoppingSession.getShippingAddress().postal_code ? store.shoppingSession.getShippingAddress().postal_code : "No hay codigo postal" }}
       </p>
     </div>
   </div>
   <!-- shipping address form-->
   <shippingAddressFormVue
     v-if="formVisible"
-    :payload="shoppingSessionStore.getUserShippingAddressPayload()"
+    :payload="store.shoppingSession.shipping_address.getAddressPayload()"
     :countryList="countries"
     :stateList="states"
     :cityList="cities"

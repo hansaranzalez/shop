@@ -12,7 +12,7 @@ defineProps<{
         :style="{
           width: '100%',
           height: '262px',
-          backgroundImage: `url('${'https://picsum.photos/163/262'}')`,
+          backgroundImage: `url('${product.images[0].url}')`,
         }"
         class="overflow-hidden rounded-2xl bg-cover bg-no-repeat"
       ></div>

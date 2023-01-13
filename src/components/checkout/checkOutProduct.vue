@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Product from "../../../entities/Product";
-import convertToCurrency from "../../../utils/convertToCurrency";
+import Product from "../../entities/Product";
+import convertToCurrency from "../../utils/convertToCurrency";
 
 defineProps<{
   product: Product;

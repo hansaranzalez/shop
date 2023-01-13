@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ElMessage } from "element-plus";
-import sendShoppingSession from "../../../actions/sendShoppingSession";
-import shoppingSessionStore from "../../../store/shoppingSessionStore";
-import convertToCurrency from "../../../utils/convertToCurrency";
+import sendShoppingSession from "../../actions/sendShoppingSession";
+import store from "../../store/store";
+import convertToCurrency from "../../utils/convertToCurrency";
 </script>
 
 <template>
@@ -15,7 +14,7 @@ import convertToCurrency from "../../../utils/convertToCurrency";
       </div>
       <div class="flex flex-1 justify-end flex-col items-end">
         <p class="text-right text-xl text-gray-600 font-semibold">
-          {{ convertToCurrency(shoppingSessionStore.getTotalPrice()) }}
+          {{ convertToCurrency(store.shoppingSession.getTotalPrice()) }}
         </p>
       </div>
     </div>

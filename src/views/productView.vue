@@ -4,7 +4,7 @@ import getProduct from "../actions/getProduct";
 import Product from "../entities/Product";
 import router from "../router";
 import productVue from "../components/products/product/index.vue";
-import shoppingSessionStore from '../store/shoppingSessionStore';
+import store from "../store/store";
 
 const productId = computed(() => router.currentRoute.value.params.id);
 const product = ref<Product>();
@@ -12,7 +12,7 @@ onMounted(async () => {
   const productFromDb = await getProduct(
     (productId.value as unknown) as number
   );
-  const foundProduct = shoppingSessionStore.findProductInShoppingCart(
+  const foundProduct = store.shoppingSession.shopping_cart.findProductInCart(
     productFromDb
   );
   if (foundProduct) {

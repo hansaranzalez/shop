@@ -9,7 +9,7 @@ export default class ShoppingCart {
     constructor(shoppingCart?: ShoppingCart) {
         if (shoppingCart) {
             this.id = shoppingCart.id;
-            this.products = shoppingCart.products;
+            this.products = shoppingCart.products.map(product => new Product(product));
             this.total_price = shoppingCart.total_price;
         } else {
             this.id = null;
@@ -24,7 +24,7 @@ export default class ShoppingCart {
             this.products.push(product);
         } else {
             this.products[index].quantity++;
-            this.products[index].totalPrice = this.products[index].price ? this.products[index].price * this.products[index].quantity : 0;
+            this.products[index].totalPrice = this.products[index].price ? this.products[index].price || 0 * this.products[index].quantity : 0;
         }
     }
 
@@ -40,7 +40,7 @@ export default class ShoppingCart {
     }
 
     public getTotalQuantity() {
-        return this.products.reduce((total, product) => total + product.quantity, 0);
+        return this.products.reduce((total, product) => total + product.quantityInCart, 0);
     }
 
     public clear() {
