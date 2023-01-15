@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import accounts from "./accounts.vue";
-import checkoutBuyNowTray from "../checkout/checkoutBuyNowTray.vue";
 import { ref } from "vue";
 import store from "../../store/store";
 
