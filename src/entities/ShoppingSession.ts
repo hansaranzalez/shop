@@ -1,3 +1,4 @@
+import Http from "../Http";
 import { Address } from "./Address";
 import Product from "./Product";
 import ShoppingCart from "./ShoppingCart";
@@ -13,24 +14,30 @@ export class ShoppingSession {
     public discount: number;
     public status: ShoppingSessionStatus;
     public total_price: number;
+    public payment_confirmation_image: File | null;
+    public payment_confirmation_image_url: string;
 
     constructor(shoppingSession?: ShoppingSession) {
         if (shoppingSession) {
             this.user = new User(shoppingSession.user);
             this.shopping_cart = new ShoppingCart(shoppingSession.shopping_cart);
             this.shipping_address = new Address(shoppingSession.shipping_address);
-            this.delivery_fee = shoppingSession.delivery_fee;
+            this.delivery_fee = 7000;
             this.discount = shoppingSession.discount;
             this.status = shoppingSession.status;
             this.total_price = shoppingSession.total_price;
+            this.payment_confirmation_image = shoppingSession.payment_confirmation_image;
+            this.payment_confirmation_image_url = shoppingSession.payment_confirmation_image_url;
         } else {
             this.user = new User();
             this.shopping_cart = new ShoppingCart();
             this.shipping_address = new Address();
-            this.delivery_fee = 0;
+            this.delivery_fee = 7000;
             this.discount = 0;
             this.status = 'pending';
             this.total_price = 0;
+            this.payment_confirmation_image = null;
+            this.payment_confirmation_image_url = '';
         }
 
         return this;
@@ -117,6 +124,16 @@ export class ShoppingSession {
             discount: this.discount,
             status: this.status,
             total_price: this.getTotalPrice(),
+        }
+    }
+
+    async sendShoppingSession() {
+        console.log(this.getShoppingSessionPayload());
+        try{
+            const result = await Http.post('shopping-sessions', this.getShoppingSessionPayload());
+            console.log('Send shopping session result',result)
+        } catch(error: any) {
+            console.log(error.message);
         }
     }
 }

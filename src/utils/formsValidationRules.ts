@@ -1,7 +1,6 @@
 import { reactive } from "vue";
 import { FormRules } from "element-plus";
 import appStore from "../store/appStore";
-import shoppingSessionStore from "../store/shoppingSessionStore";
 
 
 
@@ -9,16 +8,6 @@ const formValidationRules = () => {
     const trans = appStore.i18n();
 
     // CUSTOM VALIDATIONS
-    function validateRepeatePassword(rule: any, value: any, callback: any) {
-        const payload = shoppingSessionStore.getUserRegistrationPayload();
-        if (value === '') {
-            callback(new Error(trans.formValidationMessages.pleaseInputPasswordAgain))
-        } else if (value !== payload.password) {
-            callback(new Error(trans.formValidationMessages.twoPasswordsDontMatch))
-        } else {
-            callback()
-        }
-    }
 
     return {
         loginForm: reactive<FormRules>({

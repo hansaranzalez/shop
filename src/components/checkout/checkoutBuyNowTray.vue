@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import sendShoppingSession from "../../actions/sendShoppingSession";
 import store from "../../store/store";
 import convertToCurrency from "../../utils/convertToCurrency";
 </script>
@@ -19,7 +18,7 @@ import convertToCurrency from "../../utils/convertToCurrency";
       </div>
     </div>
     <div>
-      <button @click="sendShoppingSession" class="primaryBtn h-16 w-80 mx-auto">
+      <button @click="store.shoppingSession.sendShoppingSession()" class="primaryBtn h-16 w-80 mx-auto">
         Buy now
       </button>
     </div>

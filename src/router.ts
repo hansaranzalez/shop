@@ -9,6 +9,8 @@ const routes = [
   { path: '/', component: ProductsView, name: 'productSearch', meta: { requiresAuth: false } },
   { path: '/product/:id', name: 'product', component: ProductView, meta: { requiresAuth: false } },
   { path: '/shopping-cart', name: 'shoppingCart', component: shoppingCartView, meta: { requiresAuth: false } },
+  { path: '/checkout', name: 'checkout', component: () => import('./views/checkout.vue'), meta: { requiresAuth: false } },
+  { path: '/payment', name: 'payment', component: () => import('./views/payment.vue'), meta: { requiresAuth: false } },
 ]
 
 const router = createRouter({

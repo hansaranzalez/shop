@@ -3,7 +3,7 @@ import { Country } from "./Country";
 import { State } from "./State";
 
 export class Address {
-    public id: string;
+    public id?: string;
     public name: string;
     public address: string;
     public country: Country;
@@ -47,5 +47,26 @@ export class Address {
             postal_code: this.postal_code,
             for_shipping: this.for_shipping
         }
+    }
+
+    setAddress(address: any) {
+        this.name = address.name;
+        this.address = address.address;
+        this.country = new Country(address.country);
+        this.state = new State(address.state);
+        this.city = new City(address.city);
+        this.postal_code = address.postal_code;
+        this.for_shipping = address.for_shipping;
+    }
+
+    reset() {
+        this.id = "";
+        this.name = "";
+        this.address = "";
+        this.country = new Country();
+        this.state = new State();
+        this.city = new City();
+        this.postal_code = 0;
+        this.for_shipping = false;
     }
 }

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import shippingAddressVue from "./shippingAddress.vue";
+import addressVue from "./address.vue";
+import shipping from "./shipping.vue";
 import checkOutProductsListVue from "./checkOutProductsList.vue";
 import checkoutBuyNowTrayVue from "./checkoutBuyNowTray.vue";
 import store from "../../store/store";
@@ -9,11 +10,14 @@ import store from "../../store/store";
     <div class="h-20 bg-white"></div>
     <!-- shipping address -->
     <div>
-      <shippingAddressVue />
+      <addressVue />
     </div>
     <!-- products -->
     <div>
       <checkOutProductsListVue :products="store.shoppingSession.shopping_cart.products"/>
+    </div>
+    <div>
+      <shipping />
     </div>
     <!-- comments -->
     <div class="bg-white p-5 space-y-5">

@@ -20,9 +20,9 @@ const ListsStore = () => ({
     countries: () => state.countries,
     states: () => state.states,
     cities: () => state.cities,
-    setCountries: (countries: Country[]) => state.countries = countries,
-    setStates: (states: State[]) => state.states = states,
-    setCities: (cities: City[]) => state.cities = cities,
+    setCountries: (countries: Country[]) => state.countries = countries.map(country => new Country(country)),
+    setStates: (states: State[]) => state.states = states.map(state => new State(state)),
+    setCities: (cities: City[]) => state.cities = cities.map(city => new City(city)),
 });
 
 export default ListsStore();
